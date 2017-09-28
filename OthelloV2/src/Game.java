@@ -47,7 +47,7 @@ public class Game {
 				System.out.println("Error: Invalid Entry!");
 		}
 		playerOne.switchPlayer();
-		while (playAgain && counter < endNumberGames) {
+		while (playAgain) {
 			Board b = new Board();
 			while (stillValidMoves) {
 				if (playerOne.isCurrentPlayer())
@@ -82,6 +82,7 @@ public class Game {
 				}
 				playerOne.switchPlayer();
 				playerTwo.switchPlayer();
+				//b.printBoard();
 				
 				oneHasMoves = b.validMovesLeft(playerOne.getColor(), false);
 				twoHasMoves = b.validMovesLeft(playerTwo.getColor(), false);
@@ -101,11 +102,14 @@ public class Game {
 				
 			}
 			if(choice != 1) {
+				System.out.println("Player 1 score: " + b.score("Black"));
+				System.out.println("Player 2 score: " + b.score("White"));
 				winner = b.finalScore();
 				if(winner == 0)
 					System.out.println("Black Wins!");
 				else
 					System.out.println("White Wins!");
+				break;
 			}
 			else {
 				winner = b.finalScore();
@@ -117,6 +121,8 @@ public class Game {
 				stillValidMoves = true;
 			}
 			System.out.println("W: " + whiteWins + " B: " + blackWins);
+			if (counter == endNumberGames)
+				break;
 		}
 
 	}

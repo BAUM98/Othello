@@ -263,7 +263,18 @@ public class Board {
 		}
 		return false;
 	}
-
+	
+	public int score(String c) {
+		int score = 0;
+		char colorChar = c.charAt(0);
+		for (int i = 0; i < boardArray.length; i++) {
+			for (int j = 0; j < boardArray[i].length; j++) {
+				if (boardArray[i][j].getColor() == colorChar)
+					score++;
+			}
+		}
+		return score;
+	}
 	/**
 	 * This method counts the number of each color pieces, and then declares the
 	 * winner based on which player has more pieces.
@@ -280,8 +291,8 @@ public class Board {
 					blackScore++;
 			}
 		}
-		System.out.println("\nBlack Score: " + blackScore);
-		System.out.println("White Score: " + whiteScore);
+		//System.out.println("\nBlack Score: " + blackScore);
+		//System.out.println("White Score: " + whiteScore);
 
 		if (blackScore > whiteScore)
 			return 0;
