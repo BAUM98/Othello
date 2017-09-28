@@ -12,37 +12,9 @@ public class Player {
 		currentPlayer = false;
 	}
 
-	public boolean makeMove(Board b) {
-		int r = -1; 
-		int c = -1;
-		boolean moveNotMade = true;
-		boolean coordsEntered = false;
-		while (moveNotMade) {
-			while (!coordsEntered) {
-				String entry = returnMove(b);
-				if (isMovePass(entry))
-					return true;
-				else if (isMoveQuit(entry))
-					return false;
-				else if (isMoveHint(entry))
-					b.validMovesLeft(color, true);
-				else {
-					r = Integer.parseInt(entry.substring(0, 1));
-					c = Integer.parseInt(entry.substring(2));
-					if (!entry.substring(1, 2).equals(" ")) {
-						System.out.println("Error: Invalid Entry!");
-						continue;
-					} else
-						coordsEntered = true;
-				}
-				moveNotMade = !(b.setPiece(r, c, color));
-				b.printBoard();
-			}
-		}
-		return true;
-	}
 
-	private String returnMove(Board b) {
+
+	public String returnMove(Board b) {
 		if (isAI)
 			return returnMoveAI(b);
 		else
@@ -83,6 +55,8 @@ public class Player {
 			for (int j = 0; j < b.totalColumns; j++) {
 				valid = b.validPlacement(i, j, color.charAt(0));
 				if (valid) {
+					i++;
+					j++;
 					coord = i + " " + j;
 					list.add(coord);
 				}
@@ -131,7 +105,7 @@ public class Player {
 		return true;
 	}
 
-	public void setCurrentPlayer() {
+	public void switchPlayer() {
 		currentPlayer = !currentPlayer;
 	}
 
@@ -145,5 +119,13 @@ public class Player {
 
 	public void makeAI() {
 		isAI = true;
+	}
+	
+	public void getHint(Board b) {
+		b.validMovesLeft(color, true);
+	}
+	
+	public String getColor() {
+		return color;
 	}
 }

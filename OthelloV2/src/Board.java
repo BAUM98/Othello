@@ -268,7 +268,7 @@ public class Board {
 	 * This method counts the number of each color pieces, and then declares the
 	 * winner based on which player has more pieces.
 	 */
-	public void finalScore() {
+	public int finalScore() {
 		int whiteScore = 0;
 		int blackScore = 0;
 		// For loop that adds a point to a player for each piece.
@@ -284,9 +284,9 @@ public class Board {
 		System.out.println("White Score: " + whiteScore);
 
 		if (blackScore > whiteScore)
-			System.out.println("\nBlack wins!");
+			return 0;
 		else
-			System.out.println("\nWhite wins!");
+			return 1;
 
 	}
 }
