@@ -17,25 +17,28 @@ public class Game {
 		while (!validPlayerEntry) {
 
 			entry = scan.nextLine();
-			entry.toLowerCase();
-			if (entry.equals("1")) {
+			entry = entry.toLowerCase();
+			validPlayerEntry = true;
+			if (entry.equals("1"))
 				playerTwo.makeAI();
-				validPlayerEntry = true;
-			} else if (entry.equals("simulation")) {
+			else if (entry.equals("simulation")) {
 				playerOne.makeAI();
 				playerTwo.makeAI();
 				choice = 1;
 				System.out.println("How many games would you like to run?");
 				endNumberGames = scan.nextInt();
-				validPlayerEntry = true;
-			} else if (entry.equals("2")) {
-				validPlayerEntry = true;
-			} else
+				System.out.println("Simulating...");
+			} else if (entry.equals("2"))
+				continue;
+			else {
 				System.out.println("Error: Invalid Entry!");
+				validPlayerEntry = false;
+			}
 		}
 		while (playAgain) {
 			Player currentPlayer = playerOne;
 			Board b = new Board();
+			stillValidMoves = true;
 			while (stillValidMoves) {
 				// //if(entry.equals("pass")) {
 				// //playerOne.nextTurn(playerTwo);
@@ -78,7 +81,6 @@ public class Game {
 			if (choice != 1) {
 				b.printBoard();
 				playAgain = b.finalScore(playerOne, playerTwo);
-				stillValidMoves = true;
 			} else {
 				winner = b.winner();
 				if (winner == 0)
@@ -86,13 +88,9 @@ public class Game {
 				else if (winner == 1)
 					whiteWins++;
 				counter++;
-				stillValidMoves = true;
 			}
-			int c = counter % 10000;
 			if (counter == endNumberGames)
 				break;
-			else if(c == 0)
-				System.out.println(counter);
 		}
 		if (choice != 1)
 			System.out.println("Thanks for playing!");

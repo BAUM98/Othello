@@ -39,7 +39,7 @@ public class Player {
 		return returnValue;
 	}
 
-	public String returnMove(Board b) {
+	private String returnMove(Board b) {
 		if (isAI)
 			return returnMoveAI(b);
 		else
@@ -67,7 +67,7 @@ public class Player {
 		return entry;
 	}
 
-	public String returnMoveAI(Board b) {
+	private String returnMoveAI(Board b) {
 		int index;
 		ArrayList<String> list = allValidMoves(b);
 		index = (int) (list.size() * Math.random());
@@ -92,7 +92,7 @@ public class Player {
 		return list;
 	}
 
-	public String getEntry() {
+	private String getEntry() {
 		Scanner scan = new Scanner(System.in);
 		return scan.nextLine();
 
@@ -115,25 +115,25 @@ public class Player {
 		return b.setPiece(r, c, color);
 	}
 
-	public boolean isMovePass(String entry) {
+	private boolean isMovePass(String entry) {
 		if (entry.equals("pass"))
 			return true;
 		return false;
 	}
 
-	public boolean isMoveQuit(String entry) {
+	private boolean isMoveQuit(String entry) {
 		if (entry.equals("quit"))
 			return true;
 		return false;
 	}
 
-	public boolean isMoveHint(String entry) {
+	private boolean isMoveHint(String entry) {
 		if (entry.equals("hint"))
 			return true;
 		return false;
 	}
 
-	public boolean isMoveCoords(String entry) {
+	private boolean isMoveCoords(String entry) {
 		int r;
 		int c;
 		if (entry.length() != 3)
@@ -157,15 +157,11 @@ public class Player {
 
 	}
 
-	public boolean stillValidMoves(Board b) {
-		return b.validMovesLeft(color, false);
-	}
-
 	public void makeAI() {
 		isAI = true;
 	}
 
-	public void getHint(Board b) {
+	private void getHint(Board b) {
 		b.validMovesLeft(color, true);
 	}
 
