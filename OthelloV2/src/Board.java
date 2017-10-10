@@ -10,7 +10,7 @@ public class Board {
 
 	private Piece[][] boardArray;
 	private String columns = "  | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |";
-	protected String line = "-----------------------------------";
+	protected String line = "----------------------------------";
 	final public int totalRows = 8;
 	final public int totalColumns = 8;
 
