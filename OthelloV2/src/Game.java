@@ -5,80 +5,33 @@ public class Game {
 	public static void main(String[] args) {
 		boolean playAgain = true;
 		boolean stillValidMoves = true;
-		boolean validPlayerEntry = false;
 		boolean moved = true;
 		Player playerOne = new Player("Black");
 		Player playerTwo = new Player("White");
-		String entry;
 		Scanner scan = new Scanner(System.in);
 		int choice = 0, counter = 0, endNumberGames = -1, winner = 0, blackWins = 0, whiteWins = 0;
 		// Check to see how many players
-		System.out.println("1 player, 2 players or Simulation?");
-		while (!validPlayerEntry) {
-
-			entry = scan.nextLine();
-			entry = entry.toLowerCase();
-			validPlayerEntry = true;
-			if (entry.equals("1"))
-				playerTwo.makeAI();
-			else if (entry.equals("simulation")) {
-				playerOne.makeAI();
-				playerTwo.makeAI();
-				choice = 1;
-				System.out.println("How many games would you like to run?");
-				endNumberGames = scan.nextInt();
-				System.out.println("Simulating...");
-			} else if (entry.equals("2"))
-				continue;
-			else {
-				System.out.println("Error: Invalid Entry!");
-				validPlayerEntry = false;
-			}
+		choice = playerOne.numOfPlayers(playerTwo);
+		if(choice == 0) {
+		System.out.println("How many games would you like to run?");
+		endNumberGames = scan.nextInt();
+		System.out.println("Simulating...");
 		}
+
 		while (playAgain) {
 			Player currentPlayer = playerOne;
 			Board b = new Board();
 			stillValidMoves = true;
 			while (stillValidMoves) {
-				// //if(entry.equals("pass")) {
-				// //playerOne.nextTurn(playerTwo);
-				// //continue;
-				// //}
-				// //else if(entry.equals("quit"))
-				// break;
-				// else if(entry.equals("hint")) {
-				// if(playerOne.isCurrentPlayer())
-				// b.validMovesLeft(playerOne.getColor(), true);
-				// else if(playerTwo.isCurrentPlayer())
-				// b.validMovesLeft(playerOne.getColor(), true);
-				// }
-				// else {
-				// r = Integer.parseInt(entry.substring(0, 1));
-				// c = Integer.parseInt(entry.substring(2));
 				currentPlayer.makeMove(b, choice);
-				// if (!moved) {
-				// System.out.println("Error: Invalid Move!");
-				// continue;
-				// }
 				if (!moved)
 					break;
 				currentPlayer = currentPlayer.nextTurn(playerOne, playerTwo, currentPlayer);
-
-				// oneHasMoves = b.validMovesLeft(playerOne.getColor(), false);
-				// twoHasMoves = b.validMovesLeft(playerTwo.getColor(), false);
-				//
-				// if (!oneHasMoves && !twoHasMoves)
-				// stillValidMoves = false;
-				// else if (!oneHasMoves && playerOne.isCurrentPlayer() && twoHasMoves) {
-				// playerOne.nextTurn(playerTwo);
-				// } else if (!twoHasMoves && playerTwo.isCurrentPlayer() && oneHasMoves) {
-				// playerOne.nextTurn(playerTwo);
-				// }
 				currentPlayer = b.validMovesForPlayers(playerOne, playerTwo, currentPlayer);
 				if (currentPlayer.getColor().equals("Empty"))
 					stillValidMoves = false;
 			}
-			if (choice != 1) {
+			if (choice != 0) {
 				b.printBoard();
 				playAgain = b.finalScore(playerOne, playerTwo);
 			} else {
@@ -92,7 +45,7 @@ public class Game {
 			if (counter == endNumberGames)
 				break;
 		}
-		if (choice != 1)
+		if (choice != 0)
 			System.out.println("Thanks for playing!");
 		else
 			System.out.println("W: " + whiteWins + " B: " + blackWins);

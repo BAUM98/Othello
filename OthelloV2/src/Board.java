@@ -299,18 +299,6 @@ public class Board {
 	public int winner() {
 		int whiteScore = score("White");
 		int blackScore = score("Black");
-		// For loop that adds a point to a player for each piece.
-//		for (int i = 0; i < boardArray.length; i++) {
-//			for (int j = 0; j < boardArray[i].length; j++) {
-//				if (boardArray[i][j].getColor() == 'W')
-//					whiteScore++;
-//				else if (boardArray[i][j].getColor() == 'B')
-//					blackScore++;
-//			}
-//		}
-		// System.out.println("\nBlack Score: " + blackScore);
-		// System.out.println("White Score: " + whiteScore);
-
 		if (blackScore > whiteScore)
 			return 0;
 		else if(blackScore == whiteScore)

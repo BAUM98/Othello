@@ -31,7 +31,7 @@ public class Player {
 				break;
 			case 4:
 				moveMade = submitCoords(b, entry);
-				if (isAI && choice != 1)
+				if (isAI && choice != 0)
 					System.out.println(b.line + "\n\t  AI moved at " + entry + "\n" + b.line);
 				break;
 			}
@@ -95,7 +95,29 @@ public class Player {
 	private String getEntry() {
 		Scanner scan = new Scanner(System.in);
 		return scan.nextLine();
+	}
 
+	public int numOfPlayers(Player two) {
+		String entry;
+		boolean validPlayerEntry = false;
+		while (!validPlayerEntry) {
+			System.out.println("1 player, 2 players or Simulation?");
+			entry = getEntry();
+			entry = entry.toLowerCase();
+			switch (entry) {
+			case "1":
+				two.makeAI();
+				return 1;
+			case "2":
+				return 2;
+			case "simulation":
+				this.makeAI();
+				two.makeAI();
+				return 0;
+			}
+			System.out.println(error);
+		}
+		return -1;
 	}
 
 	private int moveType(String entry) {
@@ -134,8 +156,7 @@ public class Player {
 	}
 
 	private boolean isMoveCoords(String entry) {
-		int r;
-		int c;
+		int r, c;
 		if (entry.length() != 3)
 			return false;
 		if (!entry.substring(1, 2).equals(" "))
