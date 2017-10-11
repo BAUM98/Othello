@@ -12,6 +12,17 @@ public class Player {
 		color = c;
 	}
 
+	/**
+	 * This method asks the player to make a move and makes the move if it is valid.
+	 * 
+	 * @param b
+	 *            Current Board
+	 * @param choice
+	 *            Which game mode, 1 player, 2 player, or simulation, is being
+	 *            played
+	 * @return Returns true if the player passed or moved, false if the player
+	 *         wishes to quit
+	 */
 	public boolean makeMove(Board b, int choice) {
 		boolean moveMade = false;
 		boolean returnValue = true;
@@ -78,8 +89,8 @@ public class Player {
 		ArrayList<String> list = new ArrayList<String>();
 		boolean valid = false;
 		String coord;
-		for (int i = 0; i < b.totalRows; i++) {
-			for (int j = 0; j < b.totalColumns; j++) {
+		for (int i = 0; i < b.TOTAL_ROWS; i++) {
+			for (int j = 0; j < b.TOTAL_COLUMNS; j++) {
 				valid = b.validPlacement(i, j, color.charAt(0));
 				if (valid) {
 					i++;
@@ -97,6 +108,14 @@ public class Player {
 		return scan.nextLine();
 	}
 
+	/**
+	 * Prompts the player what game mode, 1 player, 2 player, or simulation, they
+	 * wish to play
+	 * 
+	 * @param two
+	 *            the other player
+	 * @return Returns 1 for 1 player, 2 for 2 player, or 0 for simulation
+	 */
 	public int numOfPlayers(Player two) {
 		String entry;
 		boolean validPlayerEntry = false;
@@ -117,7 +136,7 @@ public class Player {
 			}
 			System.out.println(error);
 		}
-		return -1;
+		return -1; // dummy return, will never actually occur
 	}
 
 	private int moveType(String entry) {
@@ -170,6 +189,17 @@ public class Player {
 		return true;
 	}
 
+	/**
+	 * This method switches the current player
+	 * 
+	 * @param one
+	 *            First player
+	 * @param two
+	 *            Second player
+	 * @param curr
+	 *            Current player
+	 * @return returns the player whose turn is next
+	 */
 	public Player nextTurn(Player one, Player two, Player curr) {
 		if (curr == one)
 			return two;
@@ -178,6 +208,9 @@ public class Player {
 
 	}
 
+	/**
+	 * This method makes a player an AI
+	 */
 	public void makeAI() {
 		isAI = true;
 	}
@@ -186,10 +219,20 @@ public class Player {
 		b.validMovesLeft(color, true);
 	}
 
+	/**
+	 * This method returns the color of the player
+	 * 
+	 * @return the Players color
+	 */
 	public String getColor() {
 		return color;
 	}
 
+	/**
+	 * Asks a player if they wish to play another game
+	 * 
+	 * @return Returns true if they do, false if they don't
+	 */
 	public boolean playAgain() {
 		boolean validEntry = false;
 		String entry;

@@ -10,9 +10,9 @@ public class Board {
 
 	private Piece[][] boardArray;
 	private String columns = "  | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |";
-	protected String line = "----------------------------------";
-	final public int totalRows = 8;
-	final public int totalColumns = 8;
+	protected String line = "-----------------------------------";
+	final public int TOTAL_ROWS = 8;
+	final public int TOTAL_COLUMNS = 8;
 
 	/**
 	 * Initializer that creates a Board object containing Piece objects, where some
@@ -21,7 +21,7 @@ public class Board {
 	public Board() {
 
 		// Creates a new array with each index having a piece object of color ' '.
-		boardArray = new Piece[totalRows][totalColumns];
+		boardArray = new Piece[TOTAL_ROWS][TOTAL_COLUMNS];
 		for (int i = 0; i < boardArray.length; i++) {
 			for (int j = 0; j < boardArray[i].length; j++) {
 				boardArray[i][j] = new Piece();
@@ -78,7 +78,17 @@ public class Board {
 		}
 	}
 
-	// Need to do javadoc
+	/**
+	 * Method that checks if a desired move for a player is allowed
+	 * 
+	 * @param r
+	 *            - desired row to place piece at, where 0 <= r <= 7
+	 * @param c
+	 *            - desired column to place piece at, where 0 <= c <= 7
+	 * @param currentPlayerChar
+	 *            - The first letter of the player trying to make the move
+	 * @return returns true if the move is valid, false if it is invalid
+	 */
 	protected boolean validPlacement(int r, int c, char currentPlayerChar) {
 		if ((r > 7 || r < 0) || (c > 7 || c < 0))
 			return false;
@@ -235,6 +245,20 @@ public class Board {
 		return false;
 	}
 
+	/**
+	 * This method checks if either player has a valid move. If the current player
+	 * has no valid moves, it will return the opposite player. If both players have
+	 * no more moves, it returns a Player who has a color of "Empty"
+	 * 
+	 * @param one
+	 *            First Player
+	 * @param two
+	 *            Second Player
+	 * @param curr
+	 *            Player which has the same reference as one or two, represents the
+	 *            current player
+	 * @return returns the the current player
+	 */
 	public Player validMovesForPlayers(Player one, Player two, Player curr) {
 		boolean oneValid = validMovesLeft(one.getColor(), false);
 		boolean twoValid = validMovesLeft(two.getColor(), false);
@@ -252,12 +276,17 @@ public class Board {
 	/**
 	 * This method checks each space to see if the specified player has a valid move
 	 * there. If a valid move is found, the method immediately returns true, and
-	 * returns false if there are no valid moves for the specified player.
+	 * returns false if there are no valid moves for the specified player. If the
+	 * player passes in true for hint, it will instead print a legal move for the
+	 * passed in color.
 	 * 
 	 * @param player
-	 *            The current player name.
-	 * @return boolean Whether or not the current player has any valid moves
-	 *         remaining
+	 *            color of the player asking if they have any valid moves left
+	 * @param hint
+	 *            If true, method will print a possible move for the player, If
+	 *            false will check to see if there are any valid moves
+	 * @return returns true if there are valid moves left, returns false if there
+	 *         are no valid moves for the passed in color or if a hint was asked for
 	 */
 	public boolean validMovesLeft(String player, boolean hint) {
 		char currentPlayerChar = player.charAt(0);
@@ -280,7 +309,7 @@ public class Board {
 		return false;
 	}
 
-	public int score(String c) {
+	private int score(String c) {
 		int score = 0;
 		char colorChar = c.charAt(0);
 		for (int i = 0; i < boardArray.length; i++) {
@@ -293,21 +322,34 @@ public class Board {
 	}
 
 	/**
-	 * This method counts the number of each color pieces, and then declares the
-	 * winner based on which player has more pieces.
+	 * This method determines which color player has won
+	 * 
+	 * @return Returns 0 if Black has won, 1 if White has won, and 2 if a tie has
+	 *         occurred
 	 */
 	public int winner() {
 		int whiteScore = score("White");
 		int blackScore = score("Black");
 		if (blackScore > whiteScore)
 			return 0;
-		else if(blackScore == whiteScore)
+		else if (blackScore == whiteScore)
 			return 2;
 		else
 			return 1;
 
 	}
 
+	/**
+	 * This method declares which player has won or if a tie has occurred, and then
+	 * asks both players if they wish to play again
+	 * 
+	 * @param one
+	 *            Player one
+	 * @param two
+	 *            Player two
+	 * @return returns true if both players want to play again, false if one or both
+	 *         don't wish to play again
+	 */
 	public boolean finalScore(Player one, Player two) {
 		int winner = 0;
 		System.out.println("Black score: " + score("Black"));
@@ -315,10 +357,9 @@ public class Board {
 		winner = winner();
 		if (winner == 0) {
 			System.out.println("Black Wins!");
-		} else if(winner == 1){
+		} else if (winner == 1) {
 			System.out.println("White Wins!");
-		}
-		else
+		} else
 			System.out.println("Tie!");
 		if (one.playAgain() && two.playAgain())
 			return true;
