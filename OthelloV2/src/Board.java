@@ -259,18 +259,18 @@ public class Board {
 	 *            current player
 	 * @return returns the the current player
 	 */
-	public Player validMovesForPlayers(Player one, Player two, Player curr) {
+	public int validMovesForPlayers(Player one, Player two, Player curr) {
 		boolean oneValid = validMovesLeft(one.getColor(), false);
 		boolean twoValid = validMovesLeft(two.getColor(), false);
 
 		if (!oneValid && !twoValid)
-			curr = new Player("Empty");
+			return 0;
 		else if (!oneValid && one == curr) {
-			curr = two;
+			return 2;
 		} else if (!twoValid && two == curr) {
-			curr = one;
+			return 1;
 		}
-		return curr;
+		return -1;
 	}
 
 	/**
@@ -366,4 +366,6 @@ public class Board {
 		else
 			return false;
 	}
+
+
 }
