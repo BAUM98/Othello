@@ -79,7 +79,7 @@ public class Computer extends Player {
 	}
 
 	/**
-	 * Asks a player if they wish to play another game
+	 *AI will return true always
 	 * 
 	 * @return Always returns true
 	 */

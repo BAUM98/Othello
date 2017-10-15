@@ -11,7 +11,8 @@ public class Human extends Player {
 	}
 
 	/**
-	 * This method gets a move from a player and makes the move
+	 * This method gets a move from a player and makes the desired move, 
+	 * either pass, hint, quit, or a set of coords
 	 * 
 	 * @return true if move was made or passed, false if the player wants to quit
 	 */
@@ -41,7 +42,7 @@ public class Human extends Player {
 	}
 
 	/**
-	 * Gets a move from the user
+	 * Gets a move from the user, and returns the move
 	 * 
 	 * @return The move the user would like to make, either a hint, pass, quit, or a
 	 *         set of coords
@@ -73,7 +74,7 @@ public class Human extends Player {
 	}
 
 	/**
-	 * Gets coords from string and attempts to place a piece
+	 * Gets coords from string and attempts to place a piece on the board
 	 * 
 	 * @return returns true if the move was made, false if it is invalid
 	 */

@@ -1,3 +1,12 @@
+
+/**
+ * Main game method, has methods to run a game, 
+ * ask for what time of game is to be played, 
+ * and can switch the current player.
+ * 
+ * @author Alexander Baumgartner
+ */
+
 import java.util.Scanner;
 
 public class Game {
@@ -60,8 +69,9 @@ public class Game {
 		Player playerOne = new Human("Black", 0);
 		Player playerTwo = new Human("White", 0);
 		Scanner scan = new Scanner(System.in);
-		int choice = 0, counter = 0, endNumberGames = -1, winner = 0, blackWins = 0, whiteWins = 0, check = 0;
+		int choice = 0, counter = 0, endNumberGames = -1, winner = 0, blackScore = 0, whiteScore = 0, check = 0;
 		double percent = 0;
+		int[] frequency = new int[128];
 		// Check to see how many players
 		choice = game.gameType();
 		switch (choice) {
@@ -105,23 +115,27 @@ public class Game {
 				b.printBoard();
 				playAgain = b.finalScore(playerOne, playerTwo);
 			} else {
-
-				winner = b.winner();
-				if (winner == 0)
-					blackWins++;
-				else if (winner == 1)
-					whiteWins++;
+				whiteScore = b.score("White");
+				blackScore = b.score("Black");
+				frequency[blackScore - whiteScore + 64]++;
 				counter++;
-				if (counter == endNumberGames)
-					break;
+				if (counter == endNumberGames) {
+					playAgain = false;
+				} else if (counter % 1000 == 0)
+					System.out.println(counter + " runs");
 			}
 		} // end outer While
 		if (choice != 2)
 			System.out.println("Thanks for playing!");
-		else
-			System.out.println("Format: White Wins, Black Wins, Standard Deviation");
-			System.out.println(whiteWins + ", " + blackWins + ", " + (Math.abs(whiteWins - blackWins)));
+		else {
+			System.out.println("Spread\tOccurences");
+			for (int i = 0; i < frequency.length; i++) {
+				if (frequency[i] != 0) {
+					System.out.println((i - 64) + "\t" + frequency[i]);
+				}
 
+			}
+		}
 	}
 
 }

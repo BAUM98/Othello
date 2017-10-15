@@ -308,8 +308,8 @@ public class Board {
 		}
 		return false;
 	}
-
-	private int score(String c) {
+	//Generate Javadoc
+	public int score(String c) {
 		int score = 0;
 		char colorChar = c.charAt(0);
 		for (int i = 0; i < boardArray.length; i++) {
@@ -321,13 +321,7 @@ public class Board {
 		return score;
 	}
 
-	/**
-	 * This method determines which color player has won
-	 * 
-	 * @return Returns 0 if Black has won, 1 if White has won, and 2 if a tie has
-	 *         occurred
-	 */
-	public int winner() {
+	private int winner() {
 		int whiteScore = score("White");
 		int blackScore = score("Black");
 		if (blackScore > whiteScore)
